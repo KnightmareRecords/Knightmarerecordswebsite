@@ -103,11 +103,11 @@
     }
 
     .hero-center {
-      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      z-index: 2; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center; pointer-events: none;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; flex: 1; padding-top: 60px;
     }
-    .hero-logo { max-width: 1100px; width: 90vw; height: auto; pointer-events: auto; }
+    .hero-logo { max-width: 1100px; width: 90%; height: auto; margin-bottom: 0.5rem; }
     .hero-tagline {
       font-size: 0.85rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;
       color: rgba(255,255,255,0.6); margin-top: 0.5rem;
@@ -292,19 +292,10 @@
       menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('open'); navList.classList.toggle('open'); });
       navList.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('open'); navList.classList.remove('open'); }); });
     }
-    // Header bg on scroll + fade out fixed logo when scrolling past hero
+    // Header bg on scroll
     const header = document.querySelector('header');
-    const heroCenter = document.querySelector('.hero-center');
-    const hero = document.querySelector('.hero');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 80);
-      if (heroCenter && hero) {
-        const heroBottom = hero.offsetHeight;
-        const progress = Math.min(window.scrollY / (heroBottom * 0.6), 1);
-        heroCenter.style.opacity = 1 - progress;
-        if (progress >= 1) { heroCenter.style.visibility = 'hidden'; }
-        else { heroCenter.style.visibility = 'visible'; }
-      }
     });
     // Fade in cards
     const fadeObs = new IntersectionObserver((entries) => {

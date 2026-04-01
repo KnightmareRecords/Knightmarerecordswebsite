@@ -89,6 +89,7 @@
       position: absolute; inset: 0; z-index: 0;
       background-image: url('bg.jpg');
       background-size: cover; background-position: center center;
+      background-attachment: fixed;
       background-color: #0a0a12;
     }
     .hero-bg::after {
@@ -292,10 +293,13 @@
       menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('open'); navList.classList.toggle('open'); });
       navList.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('open'); navList.classList.remove('open'); }); });
     }
-    // Header bg on scroll
+    // Header bg on scroll + parallax for mobile
     const header = document.querySelector('header');
+    const heroBg = document.querySelector('.hero-bg');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 80);
+      // Parallax: background scrolls at half speed
+      if (heroBg) { heroBg.style.transform = 'translateY(' + (window.scrollY * 0.5) + 'px)'; }
     });
     // Fade in cards
     const fadeObs = new IntersectionObserver((entries) => {

@@ -60,6 +60,7 @@
     }
     .btn-book:hover { background: #fff; color: #000; border-color: #fff; }
 
+    .mobile-only { display: none; }
     .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
     .menu-toggle span { display: block; width: 24px; height: 2px; background: #fff; transition: transform var(--tr), opacity var(--tr); }
     .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
@@ -172,7 +173,10 @@
 
     /* Mobile */
     @media (max-width: 768px) {
-      .menu-toggle { display: flex; z-index: 1001; }
+      .nav-wrapper { padding: 0.4rem 1rem; justify-content: center; position: relative; }
+      .nav-logo { order: 0; }
+      .nav-logo img { height: 60px; margin: -10px 0; }
+      .menu-toggle { display: flex; z-index: 1001; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
       nav ul {
         position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
         background: rgba(10,10,15,0.98); flex-direction: column;
@@ -183,8 +187,9 @@
       nav ul.open { right: 0; }
       nav ul a { font-size: 1rem; }
       .btn-book { display: none; }
-      .nav-logo img { height: 60px; margin: -10px 0; }
-      .nav-wrapper { padding: 0.4rem 1rem; }
+      .mobile-only { display: list-item; list-style: none; }
+      nav ul .btn-book-mobile { display: inline-block; padding: 0.6rem 1.5rem; background: transparent; color: #fff; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 3px; text-align: center; transition: all var(--tr); margin-top: 0.5rem; }
+      nav ul .btn-book-mobile:hover { background: #fff; color: #000; }
       .hero { height: 100svh; }
       .hero-logo { max-width: 90vw; width: 95%; }
       .hero-center { padding-top: 40px; }
@@ -222,6 +227,7 @@
           <li><a href="photos.html">Photos</a></li>
           <li><a href="gear.html">Gear</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li class="mobile-only"><a href="https://giggster.com/" class="btn-book-mobile" target="_blank" rel="noopener">Book Now</a></li>
         </ul>
         <a href="https://giggster.com/" class="btn-book" target="_blank" rel="noopener">Book Now</a>
       </nav>

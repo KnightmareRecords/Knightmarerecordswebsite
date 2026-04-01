@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knightmare Records — Recording Studio</title>
+  <meta name="description" content="Knightmare Records — Professional recording studio. World-class gear, expert engineering, and a creative space built for artists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f; --bg-secondary: #111118; --bg-card: #1a1a25;
+      --text-primary: #f0f0f5; --text-secondary: #9999aa; --text-dim: #666678;
+      --accent: #c8102e; --accent-glow: rgba(200,16,46,0.35); --accent-hover: #e0243f;
+      --border: #2a2a3a; --font: 'Inter','Segoe UI',sans-serif; --max-width: 1200px; --tr: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; transition: color var(--tr); }
+    h1,h2,h3,h4 { font-family: var(--font); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.6rem,3.5vw,2.4rem); }
+    h3 { font-size: clamp(1.2rem,2.5vw,1.6rem); }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+    /* ====== NAVIGATION ====== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,10,15,0.6);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: background 0.4s ease;
+    }
+    header.scrolled { background: rgba(10,10,15,0.95); }
+    .nav-wrapper {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.4rem 2.5rem; max-width: 1400px; margin: 0 auto;
+    }
+    .nav-logo img { height: 100px; width: auto; filter: brightness(1.1); margin: -20px 0; }
+    .nav-logo-text {
+      font-size: 1.2rem; font-weight: 800; color: #fff; text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .nav-logo-text .sub {
+      display: block; font-size: 0.55rem; font-weight: 400; letter-spacing: 0.35em;
+      color: var(--text-secondary); margin-top: -2px;
+    }
+    nav { display: flex; align-items: center; gap: 0.5rem; }
+    nav ul { list-style: none; display: flex; align-items: center; gap: 1.8rem; }
+    nav a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; transition: color var(--tr); }
+    nav a:hover { color: #fff; }
+    .nav-socials { display: flex; align-items: center; gap: 1rem; margin-left: 1.5rem; }
+    .nav-socials a { color: rgba(255,255,255,0.6); font-size: 1rem; }
+    .nav-socials a:hover { color: #fff; }
+    .btn-book {
+      display: inline-block; padding: 0.55rem 1.5rem; margin-left: 1.5rem;
+      background: transparent; color: #fff; font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border: 1.5px solid rgba(255,255,255,0.5); border-radius: 3px;
+      cursor: pointer; transition: all var(--tr);
+    }
+    .btn-book:hover { background: #fff; color: #000; border-color: #fff; }
+
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: #fff; transition: transform var(--tr), opacity var(--tr); }
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* ====== HERO — FULL BLEED ====== */
+    .hero {
+      position: relative; width: 100%; height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('bg.jpg');
+      background-size: cover; background-position: center center;
+      background-color: #0a0a12;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,15,0.5) 0%,
+        rgba(10,10,15,0.35) 40%,
+        rgba(10,10,15,0.55) 80%,
+        rgba(10,10,15,0.9) 100%
+      );
+    }
+
+    .hero-center {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; flex: 1; padding-top: 60px;
+    }
+    .hero-logo { max-width: 1100px; width: 90%; height: auto; margin-bottom: 0.5rem; }
+    .hero-tagline {
+      font-size: 0.85rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-top: 0.5rem;
+    }
+
+    /* Fallback text logo if image not loaded */
+    .hero-logo-text {
+      display: none; font-size: clamp(3rem,8vw,5.5rem); font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.06em; line-height: 1;
+      background: linear-gradient(180deg, #e8e8f0 0%, #8a8a9a 40%, #c0c0cc 60%, #6a6a7a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .hero-logo-text .sub {
+      display: block; font-size: clamp(0.9rem,2vw,1.4rem); font-weight: 300;
+      letter-spacing: 0.4em; -webkit-text-fill-color: rgba(180,180,195,0.7);
+      margin-top: 0.25rem;
+    }
+    /* Show text logo if image fails */
+    .hero-logo-text.show { display: block; }
+
+    /* ====== SERVICE BAR (bottom of hero) ====== */
+    .service-bar {
+      position: relative; z-index: 2; width: 100%;
+      padding: 1.5rem 2rem; margin-bottom: 0;
+      display: flex; justify-content: center; gap: clamp(1.5rem,4vw,4rem);
+      flex-wrap: wrap;
+    }
+    .service-bar a {
+      color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color var(--tr), text-shadow var(--tr);
+      position: relative; padding-bottom: 4px;
+    }
+    .service-bar a::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1.5px;
+      background: #fff; transition: all 0.3s ease; transform: translateX(-50%);
+    }
+    .service-bar a:hover { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+    .service-bar a:hover::after { width: 100%; }
+
+    /* ====== CONTENT SECTIONS ====== */
+    .section { padding: 5rem 0; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { margin-bottom: 0.75rem; }
+    .section-header p { color: var(--text-secondary); max-width: 540px; margin: 0 auto; }
+    .divider { width: 60px; height: 3px; background: var(--accent); margin: 1.5rem auto; border-radius: 2px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem;
+      transition: transform var(--tr), border-color var(--tr), box-shadow var(--tr);
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+    .card h3 { margin-bottom: 0.5rem; }
+    .card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    /* ====== FOOTER ====== */
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    footer p { color: var(--text-secondary); font-size: 0.85rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 0.75rem; }
+    .footer-links a { color: var(--text-secondary); font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ====== RESPONSIVE ====== */
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .nav-wrapper { padding: 0.4rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      nav a { font-size: 0.75rem; }
+      .btn-book { padding: 0.45rem 1rem; font-size: 0.7rem; margin-left: 1rem; }
+      .hero-logo { max-width: 800px; }
+      .container { padding: 0 1.5rem; }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; z-index: 1001; }
+      nav ul {
+        position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+        background: rgba(10,10,15,0.98); flex-direction: column;
+        padding: 5rem 2rem 2rem; gap: 1.5rem;
+        transition: right var(--tr); border-left: 1px solid var(--border);
+        z-index: 1000;
+      }
+      nav ul.open { right: 0; }
+      nav ul a { font-size: 1rem; }
+      .btn-book { display: none; }
+      .nav-logo img { height: 60px; margin: -10px 0; }
+      .nav-wrapper { padding: 0.4rem 1rem; }
+      .hero { height: 100svh; }
+      .hero-logo { max-width: 90vw; width: 95%; }
+      .hero-center { padding-top: 40px; }
+      .service-bar { padding: 1rem 1rem; }
+      .container { padding: 0 1rem; }
+      footer { padding: 1.5rem 0; }
+      .footer-links { flex-wrap: wrap; gap: 1rem; }
+    }
+
+    /* Small phones */
+    @media (max-width: 420px) {
+      .nav-logo img { height: 45px; margin: -8px 0; }
+      .hero-logo { width: 98%; }
+      .hero-center { padding-top: 30px; }
+      .footer-links { gap: 0.75rem; }
+      .footer-links a { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <div class="nav-wrapper">
+      <!-- Logo in nav (small version) -->
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="Knightmare Records">
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="gear.html">Gear</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="https://giggster.com/" class="btn-book" target="_blank" rel="noopener">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO — FULL BLEED -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-center">
+      <!-- Logo image — replace src with your logo file -->
+      <img
+        class="hero-logo"
+        src="logo.png"
+        alt="Knightmare Records"
+        onerror="this.style.display='none'; document.querySelector('.hero-logo-text').classList.add('show');"
+      >
+      <!-- Fallback text logo if image not found -->
+      <div class="hero-logo-text">
+        Knightmare<span class="sub">Records</span>
+      </div>
+    </div>
+
+    <!-- Location bar at bottom of hero -->
+    <div class="service-bar">
+      <span style="color: rgba(255,255,255,0.85); font-size: 0.9rem; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;">Burbank, CA</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Knightmare Records. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="photos.html">Photos</a>
+        <a href="gear.html">Gear</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.querySelector('nav ul');
+    if (menuToggle && navList) {
+      menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('open'); navList.classList.toggle('open'); });
+      navList.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { menuToggle.classList.remove('open'); navList.classList.remove('open'); }); });
+    }
+    // Header bg on scroll
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 80);
+    });
+    // Fade in cards
+    const fadeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; fadeObs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.card').forEach(el => {
+      el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+      fadeObs.observe(el);
+    });
+  </script>
+</body>
+</html>

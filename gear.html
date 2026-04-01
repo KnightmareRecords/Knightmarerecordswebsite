@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gear List — Knightmare Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f; --bg-secondary: #111118; --bg-card: #1a1a25;
+      --text-primary: #f0f0f5; --text-secondary: #9999aa;
+      --accent: #c8102e; --accent-glow: rgba(200,16,46,0.35); --accent-hover: #e0243f;
+      --border: #2a2a3a; --font: 'Inter','Segoe UI',sans-serif; --max-width: 1200px; --tr: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; transition: color var(--tr); }
+    h1,h2,h3 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.2rem,5vw,3.5rem); }
+    h3 { font-size: clamp(1.2rem,2.5vw,1.6rem); }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+    main { flex: 1; }
+
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 2.5rem; max-width: 1400px; margin: 0 auto; }
+    .nav-logo img { height: 100px; width: auto; filter: brightness(1.1); margin: -20px 0; } .nav-logo-text { font-size: 1.2rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.1em; }
+    .nav-logo-text .sub { display: block; font-size: 0.55rem; font-weight: 400; letter-spacing: 0.35em; color: var(--text-secondary); margin-top: -2px; }
+    nav { display: flex; align-items: center; gap: 0.5rem; }
+    nav ul { list-style: none; display: flex; align-items: center; gap: 1.8rem; }
+    nav a { color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+    nav a:hover, nav a.active { color: #fff; }
+    .btn-book { display: inline-block; padding: 0.55rem 1.5rem; margin-left: 1.5rem; background: transparent; color: #fff; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 3px; cursor: pointer; transition: all var(--tr); }
+    .btn-book:hover { background: #fff; color: #000; border-color: #fff; }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: #fff; }
+
+    .page-hero { padding: 8rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; background: var(--bg-secondary); }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center bottom, var(--accent-glow) 0%, transparent 60%); pointer-events: none; }
+    .page-hero h1 { position: relative; z-index: 1; margin-bottom: 0.5rem; }
+    .page-hero p { position: relative; z-index: 1; color: var(--text-secondary); font-size: 1.1rem; max-width: 500px; margin: 0 auto; }
+
+    .section { padding: 4rem 0; }
+    .gear-category { margin-bottom: 3rem; }
+    .gear-category h3 { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .gear-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
+    .gear-list li { padding: 0.8rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; display: flex; align-items: center; gap: 0.75rem; transition: border-color var(--tr); }
+    .gear-list li:hover { border-color: var(--accent); }
+    .gear-list li::before { content: '\25B8'; color: var(--accent); font-weight: bold; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    footer p { color: var(--text-secondary); font-size: 0.85rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 0.75rem; }
+    .footer-links a { color: var(--text-secondary); font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 1024px) {
+      .nav-wrapper { padding: 0.4rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      nav a { font-size: 0.75rem; }
+      .btn-book { padding: 0.45rem 1rem; font-size: 0.7rem; margin-left: 1rem; }
+      .container { padding: 0 1.5rem; }
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; z-index: 1001; }
+      nav ul { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(10,10,15,0.98); flex-direction: column; padding: 5rem 2rem 2rem; gap: 1.5rem; transition: right var(--tr); border-left: 1px solid var(--border); z-index: 1000; }
+      nav ul.open { right: 0; }
+      nav ul a { font-size: 1rem; }
+      .btn-book { display: none; }
+      .nav-logo img { height: 60px; margin: -10px 0; }
+      .nav-wrapper { padding: 0.4rem 1rem; }
+      .page-hero { padding: 6rem 1.5rem 2rem; }
+      .page-hero p { font-size: 0.95rem; }
+      .gear-list { grid-template-columns: 1fr; }
+      .container { padding: 0 1rem; }
+      .section { padding: 3rem 0; }
+      footer { padding: 1.5rem 0; }
+      .footer-links { flex-wrap: wrap; gap: 1rem; }
+    }
+    @media (max-width: 420px) {
+      .nav-logo img { height: 45px; margin: -8px 0; }
+      .footer-links a { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrapper">
+      <a href="index.html" class="nav-logo"><img src="logo.png" alt="Knightmare Records"></a>
+      <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="gear.html" class="active">Gear</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="https://giggster.com/" class="btn-book" target="_blank" rel="noopener">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <h1>Our Gear</h1>
+      <p>Vintage meets modern. Here's what's under the hood at Knightmare Records.</p>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="gear-category"><h3>Console &amp; DAW</h3><ul class="gear-list"><li>SSL 4000 G+ Analog Console</li><li>Avid Pro Tools HDX</li><li>Universal Audio Apollo x16 (&times;2)</li><li>Dangerous Music 2-BUS+</li></ul></div>
+        <div class="gear-category"><h3>Microphones</h3><ul class="gear-list"><li>Neumann U87 Ai</li><li>Neumann U67 (vintage)</li><li>AKG C414 XLII (matched pair)</li><li>Shure SM7B</li><li>Royer R-121 Ribbon</li><li>Coles 4038 Ribbon (matched pair)</li><li>Sennheiser MD 421-II (&times;4)</li><li>Shure SM57 (&times;6)</li><li>AKG D112</li></ul></div>
+        <div class="gear-category"><h3>Preamps</h3><ul class="gear-list"><li>Neve 1073 (&times;2)</li><li>API 512c (&times;4)</li><li>Universal Audio 6176</li><li>Avalon VT-737sp</li><li>Grace Design m108</li></ul></div>
+        <div class="gear-category"><h3>Compressors &amp; EQ</h3><ul class="gear-list"><li>Teletronix LA-2A (reissue)</li><li>UREI 1176LN (&times;2)</li><li>SSL G-Bus Compressor</li><li>Empirical Labs Distressor (&times;2)</li><li>Pultec EQP-1A (reissue)</li><li>Manley Massive Passive EQ</li></ul></div>
+        <div class="gear-category"><h3>Reverb &amp; Effects</h3><ul class="gear-list"><li>Lexicon 480L</li><li>Bricasti M7</li><li>Eventide H3000</li><li>Strymon BigSky</li></ul></div>
+        <div class="gear-category"><h3>Monitoring</h3><ul class="gear-list"><li>Focal Trio11 Be (main pair)</li><li>Yamaha NS-10M (nearfield)</li><li>Auratone 5C Super Sound Cube</li><li>Grace Design m905 Monitor Controller</li></ul></div>
+        <div class="gear-category"><h3>Instruments &amp; Amps</h3><ul class="gear-list"><li>Yamaha C7 Grand Piano</li><li>Fender Rhodes Mark I</li><li>Hammond B3 with Leslie 122</li><li>Fender '65 Twin Reverb</li><li>Marshall JCM800</li><li>Ampeg SVT Classic (bass)</li><li>DW Collector's Drum Kit</li></ul></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Knightmare Records. All rights reserved.</p>
+      <div class="footer-links"><a href="index.html">Home</a><a href="photos.html">Photos</a><a href="gear.html">Gear</a><a href="contact.html">Contact</a></div>
+    </div>
+  </footer>
+  <script>
+    const mt = document.querySelector('.menu-toggle'), nl = document.querySelector('nav ul');
+    if (mt&&nl) { mt.addEventListener('click',()=>{mt.classList.toggle('open');nl.classList.toggle('open');}); nl.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{mt.classList.remove('open');nl.classList.remove('open');})); }
+    const fo = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';fo.unobserve(e.target);}});},{threshold:0.1});
+    document.querySelectorAll('.gear-category').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.6s ease, transform 0.6s ease';fo.observe(el);});
+  </script>
+</body>
+</html>
